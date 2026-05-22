@@ -1,0 +1,128 @@
+<div class="container">
+
+  <!-- 📝 LEFT SIDE -->
+  <div class="editor-section">
+
+    <h2 style="text-align:center;">
+      CodeCollab Editor 
+    </h2>
+
+    <!-- 📌 ROOM -->
+    <p>
+      <b>Room ID:</b> {{roomId}}
+    </p>
+
+    <!-- 👥 USERS -->
+    <h3>Users Online:</h3>
+
+    <ul>
+      <li *ngFor="let user of users">
+        {{user}}
+      </li>
+    </ul>
+
+    <hr>
+
+    <!-- 🌐 LANGUAGE -->
+    <label>
+      <b>Select Language:</b>
+    </label>
+
+    <select
+      [(ngModel)]="selectedLanguage"
+      (change)="onLanguageChange()">
+
+      <option value="java">
+        Java
+      </option>
+
+      <option value="python">
+        Python
+      </option>
+
+      <option value="javascript">
+        JavaScript
+      </option>
+
+    </select>
+
+    <br><br>
+
+    <!-- 💾 SAVE -->
+    <p style="color: green; font-weight: bold;">
+      {{ saveStatus }}
+    </p>
+
+    <!-- ✍️ TYPING -->
+    <p style="color: blue; font-weight: bold;">
+      {{ typingUser }}
+    </p>
+
+    <!-- 🔥 EDITOR WRAPPER -->
+    <div class="editor-wrapper">
+
+      <ngx-monaco-editor
+
+        class="code-editor"
+
+        [options]="editorOptions"
+
+        [(ngModel)]="code"
+
+        (ngModelChange)="onCodeChange($event)">
+
+      </ngx-monaco-editor>
+
+    </div>
+
+    <!-- ▶️ RUN -->
+    <button (click)="runCode()">
+
+      Run Code ▶️
+
+    </button>
+
+    <!-- 📤 OUTPUT -->
+    <h3>Output:</h3>
+
+    <pre class="output-box">{{output}}</pre>
+
+  </div>
+
+  <!-- 💬 RIGHT SIDE -->
+  <div class="chat-section">
+
+    <h3>💬 Chat</h3>
+
+    <!-- 💬 CHAT MESSAGES -->
+    <div class="chat-box">
+
+      <div *ngFor="let msg of messages">
+
+        <b>{{msg.user}}:</b>
+
+        {{msg.text}}
+
+      </div>
+
+    </div>
+
+    <!-- ✍️ CHAT INPUT -->
+    <div class="chat-input">
+
+      <input
+        [(ngModel)]="newMessage"
+        (keyup.enter)="sendChat()"
+        placeholder="Type message..." />
+
+      <button (click)="sendChat()">
+
+        Send
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
